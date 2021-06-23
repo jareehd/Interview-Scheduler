@@ -1,0 +1,19 @@
+{
+  "name": "interview-scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jareehd/Interview-Scheduler.git"
+  },
+  "author": "Dheeraj Maurya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jareehd/Interview-Scheduler/issues"
+  },
+  "homepage": "https://github.com/jareehd/Interview-Scheduler#readme"
+}
