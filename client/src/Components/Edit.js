@@ -76,10 +76,12 @@ export default function Edit(props) {
   const [ loading, setloading ] = useState(true)
   const [ items, setitem ] = useState([])
   const [ emails, setemailstate ] = useState([])
+  const [resume, setResume] = useState(""); 
   const [start, setStart] = useState(new Date())
   const [end, setEnd] = useState(new Date()) 
   const [page, setPage] = React.useState(0) 
   const rowsPerPage = 5
+  
   
   useEffect( ()=>{
     const fetch = async ()=>{
@@ -91,6 +93,7 @@ export default function Edit(props) {
             setitem(users)
             let Email = []
             for(let email of props.item.emails) Email.push(email)
+            setResume(props.item.resume)
             setemailstate(Email)   
             setStart(new Date(parseInt(props.item.duration.start)))
             setEnd(new Date(parseInt(props.item.duration.end)))
@@ -119,6 +122,24 @@ export default function Edit(props) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
+  const handleResume = async (event) => {
+    const file = event.target.files[0];
+    
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+     
+    getBase64(file).then(
+      data => setResume(data)
+    );
+     
+}
  
   const handleSubmit = ()=>{
     if(start>end)
@@ -128,7 +149,8 @@ export default function Edit(props) {
         users,
         start : start.getTime().toString(),
         end : end.getTime().toString(),
-        interviewID: props.item._id
+        interviewID: props.item._id,
+        resume
     }
     axios
     .post(baseURL, formData)
@@ -212,6 +234,9 @@ export default function Edit(props) {
         />
       </Paper>
        
+      Select Resume
+       <input type="file" name="resume" accept="application/pdf" onChange={(e) => handleResume(e)}/>
+       { resume && <embed src={resume} width="400px" height="100px" />  }
       <Button variant="primary" onClick = {()=>handleSubmit()}>Done Editing Interview</Button>
     </div>
   );

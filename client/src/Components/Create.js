@@ -231,6 +231,8 @@ export default function Create() {
       </Paper>
        Select Resume
        <input type="file" name="resume" accept="application/pdf" onChange={(e) => handleResume(e)}/>
+       <br/>
+       { resume && <embed src={resume} width="400px" height="100px" />  }
       <Button variant="primary" onClick = {()=>handleSubmit()}>Create Interview</Button>
     </div>
   );

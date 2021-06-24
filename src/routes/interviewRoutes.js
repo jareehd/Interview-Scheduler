@@ -35,7 +35,7 @@ router.post('/delete', async (req,res)=>{
 
 router.post('/update', update_check ,  async (req,res) => {
     try {
-        emails=[]
+        emails=[] 
         for( const user of req.body.users)
         {
             emails.push(user.email)
@@ -45,7 +45,8 @@ router.post('/update', update_check ,  async (req,res) => {
             duration : {
                 start : req.body.start,
                 end : req.body.end
-            }
+            },
+            resume:req.body.resume
         })
         const interview = await Interview.findById(req.body.interviewID)
         for(const user of req.body.users)
