@@ -3,8 +3,7 @@ const validator = require('validator')
 
 const userSchema = new mongoose.Schema({
     firstname : {
-        type : String,
-        required:true
+        type : String
     },
     lastname:{
         type : String
@@ -24,7 +23,7 @@ const userSchema = new mongoose.Schema({
     interviews : [{
             type : mongoose.Schema.Types.ObjectId, 
             ref  : 'Interview'
-    }]
+    }] 
 })
  
 const User =  mongoose.model('User',userSchema)

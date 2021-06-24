@@ -61,33 +61,33 @@ router.post('/update', update_check ,  async (req,res) => {
     }
 })
 
-router.post('/', valid_check , async (req,res) => {
+router.post('/',valid_check, async (req,res) => {
     try {
         
         emails=[]
+        const resume = req.body.resume
         for( const user of req.body.users)
         {
             emails.push(user.email)
         }
-          
         interview = await new Interview({
             emails,
             duration : {
                 start : req.body.start,
                 end : req.body.end
-            }  
+            },
+            resume
         }).save()
-        for(const user of req.body.users)
+        for(const currentuser of req.body.users)
         {
-            const participant = await User.findById(user._id)
+            const user = await User.findById(currentuser._id)
             user.interviews.push(interview._id)
-            await participant.save()
+            await user.save()
         }
         res.status(201).send()
     } catch (e) {
-        res.status(500).send(e)
+        res.status(500).send()
     }
 })
-
 
 module.exports = router;
