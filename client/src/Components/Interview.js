@@ -15,7 +15,13 @@ const Interview = ({item}) => {
             <span style={{fontFamily: "arial"}}> {start}  </span> - 
             End time : 
             <span style={{fontFamily: "arial"}}> {end}<br/> </span>
-        
+            { item.resume  && 
+            <div>
+                <br/>
+                <span style={{fontFamily: "arial"}}>Resume :  </span><br/>
+                <embed src={item.resume} width="900px" height="300px" />
+            </div>}
+
             <hr/>
         </div>
     )

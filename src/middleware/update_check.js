@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 update_check = async   (req,res,next) => {
     if(req.body.users.length<2)
         return res.status(400).send({
-            error : 'No of participants is less than 2.'
+            error : 'Number of participants is less than 2.'
         })
 
     const users = req.body.users

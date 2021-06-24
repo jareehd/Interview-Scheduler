@@ -78,6 +78,7 @@ export default function Create() {
   const [ emails, setemailstate ] = useState([])
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date()); 
+  const [resume, setResume] = useState(""); 
   const [page, setPage] = React.useState(0); 
   const rowsPerPage = 5
   
@@ -97,7 +98,7 @@ export default function Create() {
     fetch()
   },[])
     
-    const handleAdd = (email) =>{
+    const handleAdd = (email) => {
         setemailstate(pre=>[
             ...pre,email
         ])
@@ -115,21 +116,41 @@ export default function Create() {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
- 
+  
+  const handleResume = async (event) => {
+      const file = event.target.files[0];
+      
+      function getBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
+      }
+       
+      getBase64(file).then(
+        data => setResume(data)
+      );
+       
+  }
+
   const handleSubmit = ()=>{
     if(start>end)
-     return alert('Start time should be before End time')
+     return alert('Start time should be before or equal to End time')
     const users = items.filter( (item) => emails.includes(item.email))
     let formData = {
         users,
         start : start.getTime().toString(),
-        end : end.getTime().toString()
+        end : end.getTime().toString(),
+        resume
     }
     axios
     .post(baseURL, formData)
     .then((response) => {
         const aux =[]
         setemailstate(aux)
+        setResume();
         alert('Interview was successfully created');
     })
     .catch((error) => {
@@ -208,7 +229,8 @@ export default function Create() {
           onChangePage={handleChangePage}
         />
       </Paper>
-       
+       Select Resume
+       <input type="file" name="resume" accept="application/pdf" onChange={(e) => handleResume(e)}/>
       <Button variant="primary" onClick = {()=>handleSubmit()}>Create Interview</Button>
     </div>
   );

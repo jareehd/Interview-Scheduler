@@ -122,7 +122,7 @@ export default function Edit(props) {
  
   const handleSubmit = ()=>{
     if(start>end)
-     return alert('Start time should be before End time')
+     return alert('Start time should be before or equal to End time')
     const users = items.filter( (item) => emails.includes(item.email))
     let formData = {
         users,
