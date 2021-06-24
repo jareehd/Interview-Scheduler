@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema({
         }
     } ,
     interviews : [{
-            type : Schema.Types.ObjectId, 
-            ref : 'Interview'
+            type : mongoose.Schema.Types.ObjectId, 
+            ref  : 'Interview'
     }]
 })
  

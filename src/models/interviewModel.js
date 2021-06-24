@@ -15,7 +15,7 @@ const interviewSchema = new mongoose.Schema({
     }],
     duration : {
         start : String,
-        end : String
+        end   : String
     },
     resume : String
 })
