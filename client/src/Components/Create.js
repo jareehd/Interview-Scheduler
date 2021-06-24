@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function EnhancedTable() {
+export default function Create() {
   const classes = useStyles();
   const url = Link.users
   const baseURL = Link.interviews

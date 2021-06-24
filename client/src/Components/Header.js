@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () =>{
     const classes = useStyles();
     return (
-    <AppBar position="static">
+    <AppBar position="static" color="secondary">
     <Toolbar variant="dense">
     <Typography align ="left" variant="h4" color="inherit" className={classes.title}>
       Interview Bytes
@@ -31,11 +31,6 @@ const Header = () =>{
                    View Interviews
        </Link>
      </Button>
-     <Button color="inherit"> 
-       <Link to="/edit" style={{ textDecoration: "none", color:'white', width: "100%" }} >
-                   Edit Interviews
-       </Link>
-       </Button>
     </div>
   </Toolbar>
 </AppBar>
