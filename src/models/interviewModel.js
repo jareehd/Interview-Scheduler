@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
+const validator = require('validator')
 
 const interviewSchema = new mongoose.Schema({
     emails : [{
         type: String,
-        required:true,
-        unique: true,
         trim: true,
         lowercase: true,
         validate(value) {

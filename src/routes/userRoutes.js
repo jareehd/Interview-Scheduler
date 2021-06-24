@@ -17,7 +17,7 @@ router.post('/',  async (req,res) => {
       await user.save() 
       res.status(201).send()
   } catch (e) {
-      res.status(500).send()
+      res.status(500).send(e)
   }
 })
 

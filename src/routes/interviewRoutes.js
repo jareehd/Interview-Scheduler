@@ -4,6 +4,10 @@ const router = express.Router();
 const Interview = require('../models/interviewModel')
 const User = require('../models/userModel')
 
+
+const valid_check = require('../middleware/valid_check')
+const update_check = require('../middleware/update_check')
+
 router.get('/', async (req, res) => {
   try {
     const interviews = await Interview.find({});
@@ -25,11 +29,11 @@ router.post('/delete', async (req,res)=>{
         await Interview.findByIdAndDelete(interview._id)
         res.status(200).send()
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send(e)
     }
 })
 
-router.post('/update',  async (req,res) => {
+router.post('/update', update_check ,  async (req,res) => {
     try {
         emails=[]
         for( const user of req.body.users)
@@ -46,18 +50,18 @@ router.post('/update',  async (req,res) => {
         const interview = await Interview.findById(req.body.interviewID)
         for(const user of req.body.users)
         {
-            const user = await User.findById(user._id)
-            if(!(user.interviews.includes(interview._id)))
-            user.interviews.push(interview._id)
-            await user.save()
+            const participant = await User.findById(user._id)
+            if(!(participant.interviews.includes(interview._id)))
+            participant.interviews.push(interview._id)
+            await participant.save()
         }
         res.status(200).send()
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send(e)
     }
 })
 
-router.post('/',  async (req,res) => {
+router.post('/', valid_check , async (req,res) => {
     try {
         
         emails=[]
@@ -73,15 +77,15 @@ router.post('/',  async (req,res) => {
                 end : req.body.end
             }  
         }).save()
-        for(const currentuser of req.body.users)
+        for(const user of req.body.users)
         {
-            const user = await User.findById(currentuser._id)
+            const participant = await User.findById(user._id)
             user.interviews.push(interview._id)
-            await user.save()
+            await participant.save()
         }
         res.status(201).send()
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send(e)
     }
 })
 
