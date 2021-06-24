@@ -34,45 +34,29 @@ router.post('/delete', async (req,res)=>{
     }
 })
 
-router.post('/update', update_check ,  async (req,res) => {
+router.post('/update', update_check, async (req,res) => {
     try {
-        emails=[] 
-        oldEmails=[]   // not updated cancelled
-
-        const oldInterview = await Interview.findById(req.body.interviewID)
-         
-        for(const user of oldInterview.emails)
-         if(!req.body.users.includes(user))  oldEmails.push(user)
-
-        const oldStart = oldInterview.duration.start
-        const oldEnd = oldInterview.duration.end
-
-        for( const user of req.body.users)  emails.push(user.email)
-        
+        emails=[]
+        for( const user of req.body.users)
+        {
+            emails.push(user.email)
+        }
         await Interview.findByIdAndUpdate(req.body.interviewID,{
             emails,
             duration : {
                 start : req.body.start,
                 end : req.body.end
-            },
-            resume:req.body.resume
+            }
         })
         const interview = await Interview.findById(req.body.interviewID)
-        for(const user of req.body.users)
+        for(const currentuser of req.body.users)
         {
-            const participant = await User.findById(user._id)
-            if(!(participant.interviews.includes(interview._id))){
-              participant.interviews.push(interview._id)
-              CreationMail(participant.email, parseInt(interview.duration.start),parseInt(interview.duration.end))
-            } else {
-              UpdationMail(participant.email, parseInt(interview.duration.start),parseInt(interview.duration.end),parseInt(oldStart),parseInt(oldEnd))
-            }
-            await participant.save()
+            const user = await User.findById(currentuser._id)
+            if(!(user.interviews.includes(interview._id)))
+             user.interviews.push(interview._id)
+             
+            await user.save()
         }
-
-        for(const user of oldEmails)
-         CancelationMail(user, parseInt(interview.duration.start),parseInt(interview.duration.end))
-         
         res.status(200).send()
     } catch (e) {
         res.status(500).send(e)

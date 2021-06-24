@@ -42,13 +42,13 @@ const CancelationMail = (email, start , end) => {
     });
 }
 
-const UpdationMail = (email, start , end ,OldStart,OldEnd) => {
+const UpdationMail = (email, start , end  ) => {
     const day = new Date(start).toDateString()
     const startTime = new Date(start).toLocaleTimeString()
     const endTime = new Date(end).toLocaleTimeString()
-    const pday = new Date(OldStart).toDateString()
-    const pstartTime = new Date(OldStart).toLocaleTimeString()
-    const pendTime = new Date(OldEnd).toLocaleTimeString()
+    // const pday = new Date(OldStart).toDateString()
+    // const pstartTime = new Date(OldStart).toLocaleTimeString()
+    // const pendTime = new Date(OldEnd).toLocaleTimeString()
     
     let mailOptions = {
         from: 'real.dipak.yadav@gmail.com',
