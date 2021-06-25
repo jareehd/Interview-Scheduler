@@ -3,6 +3,7 @@ const cors = require("cors")
 const app = express()
 require('dotenv').config()          
 const mongoose = require('mongoose') 
+const indexRoutes = require('./routes/indexRoutes');
 const usersRouter = require('./routes/userRoutes')
 const interviewRouter = require('./routes/interviewRoutes')
 const path = require('path')
@@ -11,6 +12,7 @@ app.use(express.json({limit : '20mb'}))
 app.use(express.urlencoded({ extended: true , limit: '20mb' }))
 app.use('/users', usersRouter)
 app.use('/interviews', interviewRouter) 
+app.use('/',indexRoutes)
 
 // connect database 
 const db = process.env.dbURI

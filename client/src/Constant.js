@@ -5,4 +5,5 @@ export const Link = {
     interviews :url+ "/interviews",
     editInterviews :url+ "/interviews/update",
     deleteInterviews :url+ "/interviews/delete",
+    joinMeet : url + '/view/'
 };

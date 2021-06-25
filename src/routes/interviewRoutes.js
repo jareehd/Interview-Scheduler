@@ -46,7 +46,8 @@ router.post('/update', update_check, async (req,res) => {
             duration : {
                 start : req.body.start,
                 end : req.body.end
-            }
+            },
+            resume
         })
         const interview = await Interview.findById(req.body.interviewID)
         for(const currentuser of req.body.users)

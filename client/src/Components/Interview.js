@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link  } from "react-router-dom";
 
 const Interview = ({item}) => {
     
@@ -8,7 +9,19 @@ const Interview = ({item}) => {
     return (
         <div>
             <span style={{fontFamily: "arial"}}> Participants : </span>
-                {item.emails.map( (email,index) =>(<span style={{fontFamily: "verdana"}} key={index} >{email} &nbsp;&nbsp; </span> ))}
+                {item.emails.map( (email,index) => (<div> 
+                  <Link to={{
+                     pathname: "/joinMeet",
+                     state: {
+                       id: item._id,
+                       email: email 
+                     }}}        
+                  style={{ textDecoration: "none", color:'black', width: "100%" }} >
+                               {email}
+                  </Link>  
+                </div>
+                //   <span style={{fontFamily: "verdana"}} key={index} >{email} &nbsp;&nbsp; </span> 
+                ))}
             <br/>
             <span style={{fontFamily: "arial"}}> Day : {date}<br/> </span>
             Start time :
