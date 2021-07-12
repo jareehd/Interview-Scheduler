@@ -87,7 +87,7 @@ router.post('/',valid_check, async (req,res) => {
             const user = await User.findById(currentuser._id)
             user.interviews.push(interview._id)
             await user.save()
-            CreationMail(user.email, parseInt(interview.duration.start),parseInt(interview.duration.end))
+//             CreationMail(user.email, parseInt(interview.duration.start),parseInt(interview.duration.end))
         }
             
         res.status(201).send()
